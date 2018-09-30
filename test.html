@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery</title>
+	<script type="text/javascript" src="jquery-3.3.1.js"></script>
+	<link rel="stylesheet" type="text/css" href="jquery-ui.css">
+	<script type="text/javascript" src="jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="jquery-ui.structure.css">
+	<link rel="stylesheet" type="text/css" href="jquery-ui.theme.css">
+
+	<link rel="stylesheet" type="text/css" href="jquery-uid.css">
+	<script type="text/javascript" src="jquery-uid.js"></script>
+	<link rel="stylesheet" type="text/css" href="jquery-ui.structured.css">
+	<link rel="stylesheet" type="text/css" href="jquery-ui.themed.css">
+
+	<script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+	<form id="form">
+		<table align="center" border="1">
+			<tr><th colspan="3">PERSON PROFILE</th></tr>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="" id="name">
+					<span id="error_name"> </span>
+				</td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><input type="text" name="" id="email">
+					<span id="error_email"> </span></td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td id="gender">
+					
+						   
+						<input name="gender" type="radio">Male
+						<input name="gender" type="radio">Female
+						<input name="gender" type="radio">Other
+					
+					<span id="error_gender"> </span>
+				</td>
+			</tr>
+			<tr>
+				<td>Date of Birth</td>
+				<td>
+					<input type="text" name="date" id="date">(dd/mmyyyy)
+					<span id="error_dob"> </span>
+				</td>
+			</tr>
+			<tr>
+				<td>Blood Group</td>
+				<td><input type="" name="" id="blood">
+					<span id="error_bg"> </span></td>
+			</tr>
+			<tr>
+				<td>Degree</td>
+				<td>
+					<input type="checkbox" name="" >SSC
+					<input type="checkbox" name="" >HSC
+					<input type="checkbox" name="" >Bsc.
+					<input type="checkbox" name="" >Msc.
+					<span id="error_degree"> </span>
+				</td>
+			</tr>
+			<tr>
+				<td>Photo</td>
+				<td>
+					<input type="file" name="" id="photo">
+					<span id="error_pic"> </span>
+				</td>
+			</tr>
+			<tr></tr>
+			<tr>
+				<td align="right" colspan="2">
+					<input type="submit" value="Submit">
+					<input type="reset" name="" value="Reset">
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+
+	<script type="text/javascript">
+		
+
+		$(function() {
+
+         	$("error_name").hide();
+			$("error_email").hide();
+			$("error_gender").hide();
+			$("error_dob").hide();
+			$("error_bg").hide();
+			$("error_degree").hide();
+			$("error_pic").hide();
+
+         
+         var error_name = false;
+         var error_email = false;
+         var error_gender = false;
+         var error_dob = false;
+         var error_bg = false;
+         var error_degree = false;
+         var error_pic = false;
+
+         $("#name").focusout(function(){
+            check_name();
+         });
+         $("#email").focusout(function() {
+            check_email();
+         });
+         $("#gender").focusout(function() {
+            check_gender();
+         });
+         
+         $("#form_password").focusout(function() {
+            check_password();
+         });
+         $("#form_retype_password").focusout(function() {
+            check_retype_password();
+         });
+
+         	function check_name() {
+	            var pattern = /^[a-zA-Z ]*$/;
+	            var name = $("#name").val();
+	            if (pattern.test(name) && name !== '') {
+	               $("#error_name").hide();
+	               $("#name").css("border-bottom","2px solid #34F458");
+
+	            }
+	            else if (name == '') {
+
+	            	$("#error_name").html("Should be filled");
+	               	$("#error_name").show();
+	               	$("#name").css("border-bottom","2px solid #F90A0A");
+	               	error_name = true;
+	            }
+
+	             else {
+	               $("#error_name").html("Enter name in right format!");
+	               $("#error_name").show();
+	               $("#name").css("border-bottom","2px solid #F90A0A");
+	               error_name = true;
+	            }
+            
+          
+         	}
+
+         	function check_email() {
+	            var pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	            var email = $("#email").val();
+	            if (pattern.test(email) && email !== '') {
+	               $("#error_email").hide();
+	               $("#email").css("border-bottom","2px solid #34F458");
+	            } else {
+	               $("#error_email").html("Invalid Email Format!");
+	               $("#error_email").show();
+	               $("#email").css("border-bottom","2px solid #F90A0A");
+	               error_email = true;
+	            }
+        	}
+
+         
+
+         	function check_gender() {
+	           var gender = $("#gender").length();
+	            if (gender.length==0) {
+					$("#error_gender").html("Gender must be selected!");
+               		$("#error_gender").show();
+               		$("#gender").css("border-bottom","2px solid #F90A0A");
+               		error_gender = true;
+
+	               
+	            } else {
+	               $("#error_gender").hide();
+	               $("#gender").css("border-bottom","2px solid #34F458");
+	            }
+         	}
+
+         
+
+         $("#form").submit(function() {
+            error_fname = false;
+            error_sname = false;
+            error_email = false;
+            error_password = false;
+            error_retype_password = false;
+
+            check_name();
+            check_email();
+            check_gender();
+
+            if (error_name === false && error_email === false && error_gender === false) {
+               alert("Registration Successfull");
+               return true;
+            } else {
+               alert("Please Fill the form Correctly");
+               return false;
+            }
+
+
+         });
+      });
+
+	</script>
+		
+</body>
+</html>
