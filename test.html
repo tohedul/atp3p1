@@ -35,9 +35,9 @@
 				<td id="gender">
 					
 						   
-						<input name="gender" type="radio">Male
-						<input name="gender" type="radio">Female
-						<input name="gender" type="radio">Other
+						<input name="gender" type="radio" value="Male">Male
+						<input name="gender" type="radio" value="Female">Female
+						<input name="gender" type="radio" value="Other">Other
 					
 					<span id="error_gender"> </span>
 				</td>
@@ -51,16 +51,16 @@
 			</tr>
 			<tr>
 				<td>Blood Group</td>
-				<td><input type="" name="" id="blood">
+				<td><input type="text" name="" id="blood">
 					<span id="error_bg"> </span></td>
 			</tr>
 			<tr>
 				<td>Degree</td>
 				<td>
-					<input type="checkbox" name="" >SSC
-					<input type="checkbox" name="" >HSC
-					<input type="checkbox" name="" >Bsc.
-					<input type="checkbox" name="" >Msc.
+					<input type="checkbox" name="" value="SSC">SSC
+					<input type="checkbox" name="" value="HSC">HSC
+					<input type="checkbox" name="" value="Bsc">Bsc.
+					<input type="checkbox" name="" value="Msc">Msc.
 					<span id="error_degree"> </span>
 				</td>
 			</tr>
@@ -110,7 +110,7 @@
          $("#email").focusout(function() {
             check_email();
          });
-         $("#gender").focusout(function() {
+         $("#gender").click(function() {
             check_gender();
          });
          
@@ -164,6 +164,24 @@
          
 
          	function check_gender() {
+	           	
+				var radioValue = $("input[name='gender']:checked"). val();
+				if(radioValue){
+					$("#error_gender").hide();
+					error_gender=false;
+
+				}
+				else {
+	               $("#error_gender").html("Must be selected!!");
+	               $("#error_gender").show();
+	               $("#email").css("border-bottom","2px solid #F90A0A");
+	               error_gender = true;
+	            }
+
+         	}
+
+
+         	function check_gender() {
 	           var gender = $("#gender").length();
 	            if (gender.length==0) {
 					$("#error_gender").html("Gender must be selected!");
@@ -181,18 +199,43 @@
          
 
          $("#form").submit(function() {
-            error_fname = false;
-            error_sname = false;
+            error_name = false;
+            error_degree = false;
             error_email = false;
-            error_password = false;
+            error_gender= false;
             error_retype_password = false;
 
             check_name();
             check_email();
-            check_gender();
 
-            if (error_name === false && error_email === false && error_gender === false) {
-               alert("Registration Successfull");
+            if (error_name == false && error_email == false && error_gender == false && error_degree == false) {
+            		//error_name = true;
+            		var name = $("#name").val();
+            		var email = $("#email").val();
+            		var radioValue = $("input[name='gender']:checked"). val();
+            		var dob =  $("#date").val();
+            		var bg =  $("#blood").val();
+
+            		var degree = [];
+					$. each($("input[name='degree']:checked"), function(){
+						degree. push($("#degree"). val());
+					});
+
+
+
+              		if(radioValue){
+               			alert(name+"\n"+email+"\n"+radioValue+"\n"+dob+"\n"+bg+"\n");
+               		}
+               		else
+               			alert(name+"\n"+email+"\n");
+
+               		
+
+
+
+
+
+               		
                return true;
             } else {
                alert("Please Fill the form Correctly");
